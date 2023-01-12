@@ -354,6 +354,7 @@
 "Assets/Scripts/EnemyBehaviour.cs"
 "Assets/Scripts/FollowPlayer.cs"
 "Assets/Scripts/PlayerController.cs"
+"Assets/Scripts/Trigger.cs"
 -langversion:9.0
 
 /deterministic

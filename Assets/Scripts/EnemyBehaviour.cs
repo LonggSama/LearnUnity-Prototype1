@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyBehaviour : MonoBehaviour
 {
     public float enemySpeed;
+    public GameObject obstacle;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,6 +15,7 @@ public class EnemyBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(Vector3.forward * enemySpeed * Time.deltaTime);
+         transform.Translate(Vector3.forward * enemySpeed * Time.deltaTime);
     }
+
 }

@@ -5,16 +5,16 @@ using UnityEngine;
 public class FollowPlayer : MonoBehaviour
 {
     public GameObject player;
-    private Vector3 cameraPosition;
+    private Vector3 offSet;
     // Start is called before the first frame update
     void Start()
     {
-        cameraPosition = this.transform.position;
+        offSet = this.transform.position;
     }
 
     // Update is called once per frame
     void LateUpdate()
     {
-        transform.position = player.transform.position + cameraPosition;
+        transform.position = player.transform.position + offSet;
     }
 }
