@@ -8,6 +8,8 @@ TagManager:
   - Piramid 1
   - Piramid 2
   - Piramid 3
+  - Player1
+  - Player2
   layers:
   - Default
   - TransparentFX

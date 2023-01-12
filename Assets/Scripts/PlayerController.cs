@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
     public float turnSpeed = 10.0f;
     private float horizontalInput;
     private float forwardInput;
+    [SerializeField] GameObject player;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,12 +21,25 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         // This is where we get player input
-        forwardInput = Input.GetAxis("Vertical");
-        horizontalInput = Input.GetAxis("Horizontal");
+        if (player.CompareTag("Player"))
+        {
+            forwardInput = Input.GetAxis("Vertical");
+            horizontalInput = Input.GetAxis("Horizontal");
+        }
+        else if (player.CompareTag("Player1")){
+            forwardInput = Input.GetAxis("Vertical1");
+            horizontalInput = Input.GetAxis("Horizontal1");
+        }
+        else if(player.CompareTag("Player2"))
+        {
+            forwardInput = Input.GetAxis("Vertical2");
+            horizontalInput = Input.GetAxis("Horizontal2");
+        }
+
 
         // Move the car forward based on vertical input
-        transform.Translate(Vector3.forward * Time.deltaTime * vehicleSpeed * forwardInput);
+        player.transform.Translate(Vector3.forward * Time.deltaTime * vehicleSpeed * forwardInput);
         // Rotates the car based on horizontal input
-        transform.Rotate(Vector3.up,turnSpeed * Time.deltaTime * turnSpeed * horizontalInput);
+        player.transform.Rotate(Vector3.up, turnSpeed * Time.deltaTime * turnSpeed * horizontalInput);
     }
 }
