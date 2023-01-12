@@ -4,17 +4,26 @@ using UnityEngine;
 
 public class FollowPlayer : MonoBehaviour
 {
-    public GameObject player;
-    private Vector3 offSet;
+    public Transform playerTransform;
+    public bool lookAt;
+
+    [Range(0.01f, 1.0f)]
+    public float smoothFactor = 0.5f;
+    private Vector3 cameraOffset;
     // Start is called before the first frame update
     void Start()
     {
-        offSet = this.transform.position;
+        cameraOffset = transform.position - playerTransform.position;
     }
 
     // Update is called once per frame
     void LateUpdate()
     {
-        transform.position = player.transform.position + offSet;
+        Vector3 newPos = playerTransform.position + cameraOffset;
+        transform.position = Vector3.Slerp(transform.position, newPos, smoothFactor);
+        if (lookAt)
+        {
+            transform.LookAt(playerTransform);
+        }
     }
 }
