@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject _player2Camera;
     [SerializeField] GameObject _alt1Camera;
     [SerializeField] GameObject _alt2Camera;
+
     private bool cameraActive;
     private bool camera1Active;
     private bool camera2Active;

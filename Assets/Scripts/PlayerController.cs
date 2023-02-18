@@ -5,20 +5,24 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     // Public Variables
-    public float vehicleSpeed = 20f;
+    // public float vehicleSpeed = 20f;
     public float turnSpeed = 10.0f;
     private float horizontalInput;
     private float forwardInput;
-    [SerializeField] GameObject player;
 
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] Rigidbody playerRb;
+    [SerializeField] float horsePower;
+    [SerializeField] GameObject player;
+    [SerializeField] GameObject centerOfMass;
+
+    private void Awake()
     {
-        
+        playerRb = GetComponent<Rigidbody>();
+        playerRb.centerOfMass = centerOfMass.transform.position;
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         // This is where we get player input
         if (player.CompareTag("Player"))
@@ -38,7 +42,8 @@ public class PlayerController : MonoBehaviour
 
 
         // Move the car forward based on vertical input
-        player.transform.Translate(Vector3.forward * Time.deltaTime * vehicleSpeed * forwardInput);
+        // player.transform.Translate(Vector3.forward * Time.deltaTime * vehicleSpeed * forwardInput);
+        playerRb.AddRelativeForce(Vector3.forward * horsePower * forwardInput);
         // Rotates the car based on horizontal input
         player.transform.Rotate(Vector3.up, turnSpeed * Time.deltaTime * turnSpeed * horizontalInput);
     }

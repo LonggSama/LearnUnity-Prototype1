@@ -5,7 +5,7 @@ using UnityEngine;
 public class FollowPlayer : MonoBehaviour
 {
     public Transform playerTransform;
-    public bool lookAt;
+    [SerializeField] bool lookAt;
 
     [Range(0.01f, 1.0f)]
     public float smoothFactor = 0.5f;
