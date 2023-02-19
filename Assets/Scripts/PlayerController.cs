@@ -1,19 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
     // Public Variables
-    // public float vehicleSpeed = 20f;
-    public float turnSpeed = 10.0f;
-    private float horizontalInput;
-    private float forwardInput;
-
     [SerializeField] Rigidbody playerRb;
     [SerializeField] float horsePower;
     [SerializeField] GameObject player;
     [SerializeField] GameObject centerOfMass;
+    [SerializeField] TextMeshProUGUI speedometerText;
+    [SerializeField] TextMeshProUGUI rpmText;
+    [SerializeField] List<WheelCollider> allWheels;
+
+    public float turnSpeed = 10.0f;
+
+    private float vehicleSpeed;
+    private float horizontalInput;
+    private float forwardInput;
 
     private void Awake()
     {
@@ -41,10 +46,37 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        // Move the car forward based on vertical input
-        // player.transform.Translate(Vector3.forward * Time.deltaTime * vehicleSpeed * forwardInput);
-        playerRb.AddRelativeForce(Vector3.forward * horsePower * forwardInput);
-        // Rotates the car based on horizontal input
-        player.transform.Rotate(Vector3.up, turnSpeed * Time.deltaTime * turnSpeed * horizontalInput);
+
+        if (IsOnGround())
+        {
+            // Move the car forward based on vertical input
+            // player.transform.Translate(Vector3.forward * Time.deltaTime * vehicleSpeed * forwardInput);
+            playerRb.AddRelativeForce(Vector3.forward * horsePower * forwardInput);
+            vehicleSpeed = Mathf.RoundToInt(playerRb.velocity.magnitude * 3.6f);
+            // Rotates the car based on horizontal input
+            player.transform.Rotate(Vector3.up, turnSpeed * Time.deltaTime * turnSpeed * horizontalInput);
+        }
+        else
+            vehicleSpeed = 0;
+
+        speedometerText.SetText("Speed: " + vehicleSpeed + " KM/H");
+        rpmText.SetText("RPM: " + ((vehicleSpeed % 30) * 40));
+    }
+
+    bool IsOnGround()
+    {
+        int wheelOnGround = 0;
+        foreach (WheelCollider wheel in allWheels)
+        {
+            if (wheel.isGrounded)
+            {
+                wheelOnGround++;
+            }
+        }
+        if (wheelOnGround > 0)
+        {
+            return true;
+        }
+        else { return false; }
     }
 }
